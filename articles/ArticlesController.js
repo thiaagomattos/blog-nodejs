@@ -53,4 +53,32 @@ router.post("/articles/delete", (req,res)=>{
     }
 });
 
+router.get("/admin/articles/edit/:id", (req,res)=>{
+    var id = req.params.id;
+    Article.findByPk(id).then(article =>{
+        if(article != undefined){
+
+            Category.findAll().then(categories =>{
+                res.render("admin/articles/edit", {categories: categories, article, article})   ;
+            });
+        }else{
+            res.redirect("/");
+        }
+    }).catch(error =>{
+        res.redirect("/");
+    });
+});
+
+router.post("/articles/update", (req,res)=>{
+    var id = req.body.id;
+    var title = req.body.title;
+
+    Article.update({title: title, slug: slugify(title)}, {
+        where:{
+            id: id
+        }
+    }).then(() =>{
+        res.redirect("/admin/articles");
+    });
+});
 module.exports = router;
