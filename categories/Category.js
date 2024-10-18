@@ -12,6 +12,7 @@ const Category = connection.define('categories', {
     }
 })
 
+//Category.sync({force: true}); - use to create table in database
 
 
 module.exports = Category;

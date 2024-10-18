@@ -20,5 +20,7 @@ const Article = connection.define('articles',{
 Category.hasMany(Article);
 Article.belongsTo(Category);
 
+//Article.sync({force: true}); - use to create table in database
+ 
 
 module.exports = Article;
